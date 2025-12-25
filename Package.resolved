@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "meshoptimizer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cqj1558/meshoptimizer.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "61846b5b3033c960c9848651f303665d3f8d452f"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser",
+      "state" : {
+        "revision" : "c5d11a805e765f52ba34ec7284bd4fcd6ba68615",
+        "version" : "1.7.0"
+      }
+    }
+  ],
+  "version" : 2
+}
