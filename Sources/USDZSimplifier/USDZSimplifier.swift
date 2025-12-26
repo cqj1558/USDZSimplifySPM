@@ -2394,18 +2394,14 @@ extension ModelEntity{
             
             let entityCopy = sourceEntity.clone(recursive: true)
             
-            // 异步保存
-            Task.detached(priority: .background) {
-                do {
-                    try await entityCopy.write(to: outputURL)
-                    await MainActor.run {
-                        debugPrint("      💾 后台保存完成（原始复制）")
-                    }
-                } catch {
-                    await MainActor.run {
-                        debugPrint("      ⚠️ 后台保存失败: \(error.localizedDescription)")
-                    }
-                }
+            // 同步保存，等待完成
+            debugPrint("      💾 保存文件...")
+            do {
+                try await entityCopy.write(to: outputURL)
+                debugPrint("      ✅ 保存完成（原始复制）")
+            } catch {
+                debugPrint("      ❌ 保存失败: \(error.localizedDescription)")
+                throw error
             }
             
             return entityCopy
@@ -2437,18 +2433,14 @@ extension ModelEntity{
         debugPrint("      - 处理网格数: \(processedCount)")
         debugPrint("      - 简化网格数: \(simplifiedCount)")
         
-        // 异步保存
-        Task.detached(priority: .background) {
-            do {
-                try await entityCopy.write(to: outputURL)
-                await MainActor.run {
-                    debugPrint("      💾 后台保存完成")
-                }
-            } catch {
-                await MainActor.run {
-                    debugPrint("      ⚠️ 后台保存失败: \(error.localizedDescription)")
-                }
-            }
+        // 同步保存，等待完成
+        debugPrint("      💾 保存文件...")
+        do {
+            try await entityCopy.write(to: outputURL)
+            debugPrint("      ✅ 保存完成")
+        } catch {
+            debugPrint("      ❌ 保存失败: \(error.localizedDescription)")
+            throw error
         }
         
         return entityCopy
